@@ -122,13 +122,45 @@ module muscle::coin_framework {
     }
 
 
+    // take coin worth a value from an account
+//    public fun take<SUI>(
+//         balance: &mut Balance<SUI>, value: u64, ctx: &mut TxContext,
+//     ): Coin<T> {
+//         Coin {
+//             id: object::new(ctx),
+//             balance: balance::split(balance, value)
+//         }
+//     }
+
+
+
+    // put coin in balance
+    public fun put<SUI>(balance: &mut Balance<SUI>, coin: Coin<SUI>) {
+        balance::join(balance, into_balance(coin));
+    }
+
+
+
+    // consume coin and add value to self
+    // public entry fun join<SUI>(self: &mut Coin<SUI>, c: Coin<SUI>) {
+    //     let Coin { id, balance } = c;
+    //     object::delete(id);
+    //     balance::join(&mut self.balance, balance);
+    // }
+
+
+    // split coin self into 2 coins
+    // public fun split<SUI>(self: &mut Coin<SUI>, split_amount: u64, ctx: &mut TxContext) : Coin<SUI> {
+    //     take(&mut self.balance, split_amount, ctx)
+    // }
+
+
     
 
-
-
-
-
 }
+
+
+
 
 
 
