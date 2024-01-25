@@ -1,4 +1,4 @@
-module muscle::muscle {
+module muscle::coin_framework {
 
     use sui::object::{Self, UID};
     use sui::tx_context::{Self, TxContext};
@@ -87,10 +87,55 @@ module muscle::muscle {
 
 
 
+    // getter for coin value
+    public fun value<SUI>(self: &Coin<SUI>) : u64 {
+        balance::value(&self.balance)
+    }
+
+
+    // getter for balance
+    public fun balance<SUI>(coin: &Coin<SUI>) : &Balance<SUI> {
+        &coin.balance
+    }
+
+
+    public fun balance_mut<SUI>(coin: &mut Coin<SUI>) : &mut Balance<SUI> {
+        &mut coin.balance
+    }
 
 
 
 
+    // wrap coin to make it transferable
+    public fun from_balance<SUI>(balance: Balance<SUI>, ctx: &mut TxContext ): Coin<SUI> {
+        Coin { id: object::new(ctx), balance }
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+module muscle::df_framework {
+
+    use sui::tx_context::{Self, TxContext};
+    use sui::object::{Self, UID};
+    
+
+    struct Field<Name: copy, drop, store, Value: store> has key {
+        id: UID,
+        name: Name, 
+        value: Value,  
+    }
 
 
 
