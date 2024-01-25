@@ -159,14 +159,14 @@ module muscle::coin_framework {
 
 }
 
-
+// BALANCE FRAMEWORK
 module muscle::balance_framework {
 
     use sui::tx_context::{Self, TxContext};
     use sui::balance::{Self, Balance};
     use sui::sui::SUI;
     use sui::coin::{Self, Coin};
-    
+
 
 
     struct Supply<SUI> has store {
@@ -179,7 +179,7 @@ module muscle::balance_framework {
 
 
 
-// Dynamic Field Module
+// DYNAMIC FIELD FRAMEWORK
 module muscle::df_framework {
 
     use sui::tx_context::{Self, TxContext};
