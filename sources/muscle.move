@@ -112,8 +112,17 @@ module muscle::coin_framework {
     }
 
 
+    // deconstruct wrapper and keep balance
+    public fun into_balance<SUI>( coin: Coin<SUI>) : Balance<SUI> {
+
+        let Coin { id, balance } = coin;
+        object::delete(id);
+        balance
+
+    }
 
 
+    
 
 
 
@@ -124,12 +133,13 @@ module muscle::coin_framework {
 
 
 
-
+// Dynamic Field Module
 module muscle::df_framework {
 
     use sui::tx_context::{Self, TxContext};
     use sui::object::{Self, UID};
-    
+    use sui::dynamic_field as dfield;
+
 
     struct Field<Name: copy, drop, store, Value: store> has key {
         id: UID,
@@ -139,6 +149,47 @@ module muscle::df_framework {
 
 
 
+    // CONSTANTS
+    const EBCSSerializationFailure: u64 = 3;
+    const ESharedObjectOperationNotSupported: u64 = 4;
+    const EFieldAlreadyExists: u64 = 0;
+    const EFieldDoesNotExist: u64 = 1;
+    const EFieldTypeMismatch: u64 = 2;
+
+
+
+    // FUNCTIONS
+
+   
+    // add df to object
+//    public fun add<Name: copy + drop + store, Value: store>(
+//         object: &mut UID,
+//         name: Name,
+//         value: Value,
+//     ) {
+
+//         let object_addr = object::uid_to_address(object);
+//         let hash = hash_type_and_key(object_addr, name);
+//         assert!(!has_child_object(object_addr, hash), EFieldAlreadyExists);
+//         let field = Field {
+//             id: object::new_uid_from_hash(hash),
+//             name,
+//             value,
+//     };
+    
+//     add_child_object(object_addr, field)
+
+//     }
+
+
+    // public fun borrow<Name: copy, drop, store, Value: store> (object: &UID, name: Name) : &Value {
+        
+    //     let object_addr = object::uid_to_address(object);
+    //     let hash = hash_type_and_key(object_addr, name);
+    //     let field = borrow_child_object<Field<Name, Value>>(object, hash);
+    //     &field.value
+
+    // }
 
 
 }
