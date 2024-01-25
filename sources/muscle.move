@@ -8,7 +8,7 @@ module muscle::muscle {
     use sui::url::{Self, Url};
     use std::option::{Self, Option};
 
-    // Resource Coin
+    // RESOURCE COIN
     struct Coin<SUI> has key, store {
         id: UID,
         balance: Balance<SUI>,
@@ -25,10 +25,43 @@ module muscle::muscle {
 
     }
 
-    
+    // cap to allow mint and burn of coin type
     struct TreasuryCap<SUI> has store, key {
         id: UID,
         total_supply: Supply<SUI>,
     }
+
+
+    //cap to allow freeze of type coin
+    struct DenyCap<SUI> has store, key {
+        id: UID,
+    }
+
+    // event for when currency is created
+    struct CurrencyCreated<SUI> has copy, drop {
+        decimals: u8,
+    }
+
+
+
+    // CONSTANTS COIN
+
+    const ENotEnough: u64 = 2;
+
+    const DENY_LIST_COIN_INDEX: u64 = 0;
+
+    const EBadWitness: u64 = 0;
+
+    const IInvalidArg: u64 = 1;
+
+
+
+    // FUNCTIONS COIN
+    
+    public fun total_supply<SUI>(cap: &TreasuryCap<SUI>) : u64 {
+        balance::supply_value(&cap.total_supply)
+    }
+
+
 
 }
