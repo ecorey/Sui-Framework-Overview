@@ -64,4 +64,18 @@ module muscle::muscle {
 
 
 
+
+    public fun treausry_into_supply<SUI>(treasury: TreasuryCap<SUI> ): Supply<SUI> {
+
+        let TreasuryCap { id, total_supply  } = treasury;
+        object::delete(id);
+        total_supply
+
+
+
+    }
+
+
+
+
 }
