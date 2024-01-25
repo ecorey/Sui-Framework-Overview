@@ -71,9 +71,27 @@ module muscle::muscle {
         object::delete(id);
         total_supply
 
-
-
     }
+
+
+    public fun supply_immut<SUI>(treasury: &TreasuryCap<SUI>) : &Supply<SUI> {
+        &treasury.total_supply
+    }
+
+
+
+
+    public fun supply_mut<SUI>(treasury: &mut TreasuryCap<SUI>) : &mut Supply<SUI> {
+        &mut treasury.total_supply
+    }
+
+
+
+
+
+
+
+
 
 
 
